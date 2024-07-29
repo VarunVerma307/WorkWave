@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../main";
+import image from '../../assets/Images/job.png'
 const JobDetails = () => {
   const { id } = useParams();
   const [job, setJob] = useState({});
@@ -29,8 +30,11 @@ const JobDetails = () => {
 
   return (
     <section className="jobDetail page">
-      <div className="container">
         <h3>Job Details</h3>
+      <div className="container">
+      <div className="jobdetails-img">
+        <img src={image}/>
+      </div>
         <div className="banner">
           <p>
             Title: <span> {job.title}</span>
@@ -69,7 +73,9 @@ const JobDetails = () => {
             <Link to={`/application/${job._id}`}>Apply Now</Link>
           )}
         </div>
+        
       </div>
+    
     </section>
   );
 };

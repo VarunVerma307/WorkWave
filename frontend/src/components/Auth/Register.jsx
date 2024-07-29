@@ -7,6 +7,7 @@ import { FaPhoneFlip } from "react-icons/fa6";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import image from '../../assets/Images/signup.png'
 import { Context } from "../../main";
 
 const Register = () => {
@@ -53,7 +54,6 @@ const Register = () => {
       <section className="authPage">
         <div className="container">
           <div className="header">
-            <img src="/JobZeelogo.png" alt="logo" />
             <h3>Create a new account</h3>
           </div>
           <form>
@@ -80,6 +80,7 @@ const Register = () => {
                 <FaPencilAlt />
               </div>
             </div>
+            
             <div className="inputTag">
               <label>Email Address</label>
               <div>
@@ -123,7 +124,7 @@ const Register = () => {
           </form>
         </div>
         <div className="banner">
-          <img src="/register.png" alt="login" />
+          <img src={image} alt="login" />
         </div>
       </section>
     </>
