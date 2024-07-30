@@ -79,3 +79,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+// className={isAuthorized ? "footerShow" : "footerHide"}
