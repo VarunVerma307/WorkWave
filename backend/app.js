@@ -33,6 +33,12 @@ app.use('/api/v1/application',applicationRouter);
 app.use('/api/v1/job',jobRouter);
 dbConnection();
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "Welcome to the API",
+  });
+});
+
 app.use(errorMiddleware)
 
 export default app;
