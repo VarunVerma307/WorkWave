@@ -19,7 +19,7 @@ const JobDetails = () => {
       navigateTo("/login");
     } else {
       axios
-        .get(`http://localhost:4000/api/v1/job/${id}`, {
+        .get(`https://workwave-30du.onrender.com/api/v1/job/${id}`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${user?.token}`,

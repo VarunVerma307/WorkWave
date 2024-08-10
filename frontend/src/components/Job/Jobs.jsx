@@ -10,7 +10,7 @@ const Jobs = () => {
   useEffect(() => {
     try {
       axios
-        .get("http://localhost:4000/api/v1/job/getall", {
+        .get("https://workwave-30du.onrender.com/api/v1/job/getall", {
            credentials: 'include',
            headers: {
             'Content-Type': 'application/json',
