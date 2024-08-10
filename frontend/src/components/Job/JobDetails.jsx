@@ -1,81 +1,86 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Context } from "../../main";
-import image from '../../assets/Images/job.png'
+import { Context } from "../../main.jsx";
+import image from '../../assets/Images/job.png';
+
 const JobDetails = () => {
   const { id } = useParams();
   const [job, setJob] = useState({});
   const navigateTo = useNavigate();
-
   const { isAuthorized, user } = useContext(Context);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:4000/api/v1/job/${id}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setJob(res.data.job);
-      })
-      .catch((error) => {
-        navigateTo("/notfound");
-      });
-  }, []);
+  // Debugging the context values
+  console.log(user);
+  
 
-  if (!isAuthorized) {
-    navigateTo("/login");
-  }
+  useEffect(() => {
+    if (!isAuthorized) {
+      navigateTo("/login");
+    } else {
+      axios
+        .get(`http://localhost:4000/api/v1/job/${id}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${user?.token}`,
+          },
+          withCredentials: true,
+        })
+        .then((res) => {
+          setJob(res.data.job);
+        })
+        .catch((error) => {
+          console.error(error);
+          navigateTo("/notfound");
+        });
+    }
+  }, [isAuthorized, user?.token, id, navigateTo]);
+
 
   return (
     <section className="jobDetail page">
-        <h3>Job Details</h3>
+      <h3>Job Details</h3>
       <div className="container">
-      <div className="jobdetails-img">
-        <img src={image}/>
-      </div>
+        <div className="jobdetails-img">
+          <img src={image} alt="Job" />
+        </div>
         <div className="banner">
           <p>
-            Title: <span> {job.title}</span>
+            Title: <span>{job?.title}</span>
           </p>
           <p>
-            Category: <span>{job.category}</span>
+            Category: <span>{job?.category}</span>
           </p>
           <p>
-            Country: <span>{job.country}</span>
+            Country: <span>{job?.country}</span>
           </p>
           <p>
-            City: <span>{job.city}</span>
+            City: <span>{job?.city}</span>
           </p>
           <p>
-            Location: <span>{job.location}</span>
+            Location: <span>{job?.location}</span>
           </p>
           <p>
-            Description: <span>{job.description}</span>
+            Description: <span>{job?.description}</span>
           </p>
           <p>
-            Job Posted On: <span>{job.jobPostedOn}</span>
+            Job Posted On: <span>{job?.jobPostedOn}</span>
           </p>
           <p>
             Salary:{" "}
-            {job.fixedSalary ? (
+            {job?.fixedSalary ? (
               <span>{job.fixedSalary}</span>
             ) : (
               <span>
-                {job.salaryFrom} - {job.salaryTo}
+                {job?.salaryFrom} - {job?.salaryTo}
               </span>
             )}
           </p>
-          {user && user.role === "Employer" ? (
-            <></>
-          ) : (
-            <Link to={`/application/${job._id}`}>Apply Now</Link>
+          {user?.role !== "Employer" && (
+            <Link to={`/application/${job?._id}`}>Apply Now</Link>
           )}
         </div>
-        
       </div>
-    
     </section>
   );
 };

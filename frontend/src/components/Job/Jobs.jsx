@@ -11,7 +11,10 @@ const Jobs = () => {
     try {
       axios
         .get("http://localhost:4000/api/v1/job/getall", {
-          withCredentials: true,
+           credentials: 'include',
+           headers: {
+            'Content-Type': 'application/json',
+          },
         })
         .then((res) => {
           setJobs(res.data);

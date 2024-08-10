@@ -4,6 +4,9 @@ import App from "./App.jsx";
 
 export const Context = createContext({
   isAuthorized: false,
+  setIsAuthorized: () => {}, // Default function to avoid errors
+  user: {},
+  setUser: () => {} // Default function to avoid errors
 });
 
 const AppWrapper = () => {
@@ -23,7 +26,7 @@ const AppWrapper = () => {
     </Context.Provider>
   );
 };
-
+// console.log(user);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AppWrapper />

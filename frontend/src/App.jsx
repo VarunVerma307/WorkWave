@@ -23,19 +23,20 @@ const App = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "https://workwave-umlf.onrender.com/api/v1/user/getuser",
+          "http://localhost:4000/api/v1/user/getuser",
           {
             withCredentials: true,
           }
         );
         setUser(response.data.user);
+        console.log(response.data.user)
         setIsAuthorized(true);
       } catch (error) {
         setIsAuthorized(false);
       }
     };
     fetchUser();
-  }, [setIsAuthorized, setUser]);
+  }, [isAuthorized]);
   return (
     <>
       <BrowserRouter>

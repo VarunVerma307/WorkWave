@@ -49,10 +49,10 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
- 
+
 userSchema.methods.getJWTToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
-    expiresIn: process.env.JWT_EXPIRES*24*60*60*1000,
+  return jwt.sign({ id: this._id, role: this.role }, process.env.JWT_SECRET_KEY, {
+    expiresIn: process.env.JWT_EXPIRES, // Token expiration time
   });
 };
 

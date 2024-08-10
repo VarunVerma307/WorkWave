@@ -4,13 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { GiHamburgerMenu } from "react-icons/gi";
-import image from '../../assets/Images/logo.png'
+import logo from '../../assets/Images/logo.png'
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
   const { isAuthorized, setIsAuthorized, user } = useContext(Context);
   const navigateTo = useNavigate();
-
+  useEffect(() => {
+    console.log("isAuthorized:", isAuthorized);
+    console.log("user:", user);
+  }, [isAuthorized, user]);
   const handleLogout = async () => {
     try {
       const response = await axios.get(
@@ -31,7 +34,7 @@ const Navbar = () => {
     <nav className={isAuthorized ? "navbarShow" : "navbarHide"}>
       <div className="container">
         <div className="logo">
-          <img src={image} alt="logo" />
+          <img src={logo} alt="logo" />
         </div>
         <ul className={!show ? "menu" : "show-menu menu"}>
           <li>
@@ -79,5 +82,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-// className={isAuthorized ? "footerShow" : "footerHide"}
